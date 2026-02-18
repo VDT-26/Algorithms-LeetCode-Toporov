@@ -4,7 +4,7 @@ class Solution:
         j = n - 1          # указатель для намс2
         k = m + n - 1      # Позиция инсерта в намс1
 
-        # Merge from the end
+        # Соединяем с конца
         while i >= 0 and j >= 0:
             if nums1[i] > nums2[j]:
                 nums1[k] = nums1[i]
