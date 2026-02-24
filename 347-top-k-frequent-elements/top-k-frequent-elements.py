@@ -6,7 +6,7 @@ class Solution:
         freq = Counter(nums)      # Тут не как в с++, можно просто импортировать библиотеку, которая сама считает частоты.
         heap = []                 # 2. Создаём min-heap
 
-        for num, count in freq.items():
+        for num, count in freq.items(): # Работаем с парами
             heapq.heappush(heap, (count, num))  # кладём (частота, число)
             if len(heap) > k:                   # если куча > k → удаляем минимум
                 heapq.heappop(heap)
