@@ -1,22 +1,28 @@
-from typing import List
-import math
 class Solution:
-    def evalRPN(self, tokens: List[str]) -> int:
+    def evalRPN(self, tokens):
+        """
+        tokens: список, в котором могут быть как числа, так и операторы.
+        """
         stack = []
-        ops = {"+", "-", "*", "/"}
-        for token in tokens:
-            if token not in ops:
-                stack.append(int(token))
-            else:
+        for token in tokens: # Если число -- добавляем в стэк, если нет -- убираем последние два значения и выполняем операцию.
+            if token == "+": 
                 b = stack.pop()
                 a = stack.pop()
-                if token == "+":
-                    stack.append(a + b)
-                elif token == "-":
-                    stack.append(a - b)
-                elif token == "*":
-                    stack.append(a * b)
-                else:  # division, truncate toward zero
-                    # use int(a / b) to truncate toward zero
-                    stack.append(int(a / b))
-        return stack[-1]
+                stack.append(a + b)
+            elif token == "-":
+                b = stack.pop()
+                a = stack.pop()
+                stack.append(a - b)
+            elif token == "*":
+                b = stack.pop()
+                a = stack.pop()
+                stack.append(a * b)
+            elif token == "/":
+                b = stack.pop()
+                a = stack.pop()
+                # Деление должно усекаться к нулю
+                stack.append(int(a / b))
+            else:
+                # токен — число (возможно со знаком)
+                stack.append(int(token))
+        return stack[-1] if stack else 0
